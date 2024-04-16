@@ -1,7 +1,9 @@
+export const dynamic = "force-dynamic"; // static by default, unless reading the request
+
 import { NextResponse, NextRequest } from "next/server";
 import QRCode from "qrcode";
 
-export async function GET(request: NextRequest) {
+export function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
 
