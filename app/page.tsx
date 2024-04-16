@@ -40,7 +40,7 @@ export default function Home() {
       params += `&margin=${margin}`;
     }
 
-    router.push(`/api?url=${url}&width=${width}${params}`);
+    router.push(`/api/qr?url=${url}&width=${width}${params}`);
 
     setUrl("");
     setWidth(DEFAULT_WIDTH);
