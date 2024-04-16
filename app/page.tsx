@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, TextField } from "@mui/material";
+import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
 import { MuiColorInput } from "mui-color-input";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -16,6 +16,7 @@ export default function Home() {
   const [margin, setMargin] = useState<number | undefined>(0);
   const [backgroundColor, setBackgroundColor] = useState("");
   const [codeColor, setCodeColor] = useState("");
+  const [transparent, setTransparent] = useState(false);
 
   const handleSubmit = async () => {
     if (!url) {
@@ -28,8 +29,12 @@ export default function Home() {
 
     let params = "";
 
-    if (!!backgroundColor) {
-      params += `&bgColor=${backgroundColor.replace("#", "")}`;
+    if (!!backgroundColor || transparent) {
+      if (transparent) {
+        params += `&bgColor=0000`;
+      } else {
+        params += `&bgColor=${backgroundColor.replace("#", "")}`;
+      }
     }
 
     if (!!codeColor) {
@@ -47,6 +52,7 @@ export default function Home() {
     setMargin(0);
     setBackgroundColor("");
     setCodeColor("");
+    setTransparent(false);
   };
 
   return (
@@ -86,15 +92,25 @@ export default function Home() {
         />
         <MuiColorInput
           format="hex"
-          value={backgroundColor}
-          onChange={setBackgroundColor}
-          label="Background color"
-        />
-        <MuiColorInput
-          format="hex"
           value={codeColor}
           onChange={setCodeColor}
           label="Code color"
+        />
+        <MuiColorInput
+          format="hex"
+          value={backgroundColor}
+          onChange={setBackgroundColor}
+          label="Background color"
+          disabled={transparent}
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              value={transparent}
+              onChange={(event) => setTransparent(event.target.checked)}
+            />
+          }
+          label="Transparent background"
         />
 
         <Button variant="contained" onClick={handleSubmit}>

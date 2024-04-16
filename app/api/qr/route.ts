@@ -40,8 +40,8 @@ export async function GET(request: NextRequest) {
       margin,
       type: "image/png",
       color: {
-        dark: backgroundColor,
-        light: codeColor,
+        dark: `#${codeColor.replace("#", "")}`,
+        light: `#${backgroundColor.replace("#", "")}`,
       },
     });
 
